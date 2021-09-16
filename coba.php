@@ -1,10 +1,8 @@
-<?php 
+<?php
 class Coba{
- public $judul,
-        $penulis,
-        $penerbit,
-        $harga;
+   public $judul,
+    $penulis,
+    $penerbit;
 }
 
-$produk1 = new Produk();
 ?>
