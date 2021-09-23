@@ -8,34 +8,41 @@ class Produk{
         $waktu_main,
         $tipe;
 
-public function __construct($judul = "judul",$penulis = "penulis",$penerbit =  "penerbit",$harga = 0, $jmlh_halaman = 0,$waktu_main =0,$tipe){
+public function __construct($judul = "judul",$penulis = "penulis",$penerbit =  "penerbit",$harga = 0, $jmlh_halaman = 0,$waktu_main =0){
     $this->judul = $judul;    
     $this->penulis = $penulis;
     $this->penerbit = $penerbit;
     $this->harga = $harga;
     $this->jmlh_halaman = $jmlh_halaman;
     $this->waktu_main = $waktu_main;
-    $this->tipe = $tipe;
 }
 
  public function getLabel(){
      return "$this->penulis , $this->penerbit";
  }
 
- public function getInfoLengkap(){
-     // Komik : Lord Of The Rings | J.R.R Tolkien, Allen & Unwin (Rp. 30000) - 100 Halaman. 
-     $str = "{$this->tipe} : {$this->judul} | {$this->getLabel()} (Rp. {$this->harga} 
-     )";
-     if($this->tipe == "Komik"){
-        $str .= " - {$this->jmlh_halaman} halaman";
-     }
-     else {
-        $str .= " ~ {$this->waktu_main} Jam.";
-     }
-
-     return $str;
+ public function getInfoProduk(){
+    $str = "{$this->judul} | {$this->getLabel()} (Rp. {$this->harga}";
+    return $str;
  }
+ 
 }
+
+class Komik extends Produk{
+    public function getInfoProduk(){
+        $str = "Komik : {$this->judul} | {$this->getLabel()} (Rp. {$this->harga} 
+     ) - {$this->jmlh_halaman} Halaman.";
+     return $str;
+    }
+ }
+
+ class Game extends Produk{
+    public function getInfoProduk(){
+        $str = "Game : {$this->judul} | {$this->getLabel()} (Rp. {$this->harga} 
+     ) - {$this->waktu_main} Jam.";
+     return $str;
+    }
+ }
 
 class CetakInfoProduk{
     public function cetak(Produk $produk){
@@ -45,12 +52,12 @@ class CetakInfoProduk{
 }
 
 
-$produk1 = new Produk("Lord Of The Rings","J.R.R Tolkien","Allen & Unwin",30000, 100,0,"Komik");
+$produk1 = new Komik("Lord Of The Rings","J.R.R Tolkien","Allen & Unwin",30000, 100,0,"Komik");
 
-$produk2 = new Produk("Star Wars","George Lucas","Lucasfilm Ltd",30000,0,50,"Game");
+$produk2 = new Game("Star Wars","George Lucas","Lucasfilm Ltd",30000,0,50,"Game");
 
 
-echo $produk1->getInfoLengkap();
+echo $produk1->getInfoProduk();
 echo "<br>";
-echo $produk2->getInfoLengkap();
+echo $produk2->getInfoProduk();
 ?>
